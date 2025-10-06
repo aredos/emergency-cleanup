@@ -25,6 +25,7 @@ Emergency Security Cleanup es un plugin de WordPress diseñado específicamente 
 - **Archivos maliciosos específicos**: Detecta archivos conocidos de malware
 - **Carpetas sospechosas**: Identifica directorios maliciosos
 - **Plugins comprometidos**: Lista de plugins maliciosos conocidos
+- **🆕 Carpetas NO registradas**: Detecta carpetas en `/plugins/` que NO están registradas en WordPress (backdoors ocultos)
 - **Escaneo de contenido**: Analiza el contenido de archivos PHP en busca de código malicioso
 - **Detección de backdoors**: Identifica patrones de código malicioso común
 - **Whitelist inteligente**: Excluye plugins de seguridad legítimos (Wordfence, iThemes, Sucuri, etc.)
@@ -515,7 +516,17 @@ Para soporte técnico:
 
 ## ⚡ Changelog
 
-### **Versión 1.1** (2025-09-01)
+### **Versión 1.2.0** (2024-01-XX)
+- 🔍 **Detección de Carpetas NO Registradas**: Detecta carpetas en `/plugins/` que no están registradas en WordPress (backdoors ocultos)
+- 🎯 **Clasificación por Severidad**: Carpetas NO registradas clasificadas en 3 niveles (Crítico, Alto, Bajo)
+- 🗑️ **Limpieza Selectiva**: Solo elimina carpetas NO registradas con severidad Alta o Crítica
+- ✅ **Verificación Inteligente de Plugins**: Detecta si Wordfence y WP Activity Log ya están instalados
+- 🔗 **Enlaces Dinámicos**: Botones que cambian según si los plugins están instalados (Instalar vs Abrir)
+- 📋 **Checklist Contextual**: Solo muestra recomendaciones de plugins que no están instalados
+- 🎨 **UI Mejorada**: Cambio de checkboxes confusos (☐) por bullets reales (•)
+- 🧹 **Lista Negra Refinada**: Eliminado `google-pagespeed-insights` para evitar falsos positivos
+
+### **Versión 1.1** (2024-01-XX)
 - 🧬 **Sistema de Análisis Heurístico**: Detección de anomalías basada en baseline esperado
 - 📊 **Contador de Archivos**: Estadísticas detalladas por directorio (themes, plugins, uploads)
 - 🔍 **Detección de Duplicados**: Identifica 15+ patrones de backups sospechosos (.bak, .old, .save)
@@ -526,7 +537,6 @@ Para soporte técnico:
 - ✅ **Whitelist Inteligente**: Excluye Wordfence, iThemes, Sucuri y otros plugins de seguridad
 - 🗄️ **Escaneo Inteligente de BBDD**: Distingue código malicioso real de contenido educativo
 - 🚨 **Detección de File Spam**: Alerta sobre inyección masiva de archivos (>100 en uploads)
-- 🚨 **Detección de Carpetas backdoor NO registradas**
 - ⚡ **Optimización de Rendimiento**: Límites de 1MB por archivo y 5,000 archivos por directorio
 
 ### **Versión 1.0** (2025-06-01)
@@ -544,4 +554,3 @@ Para soporte técnico:
 ---
 
 **⚠️ Recuerda: Este plugin es para emergencias. Elimínalo después de la limpieza y mantén tu sitio seguro con herramientas de seguridad permanentes.**
-

@@ -55,7 +55,7 @@ msgid "Archivo de hosting detectado"
 msgstr ""
 
 #: emergency-cleanup.php:211
-msgid "Hosting confirmó que es configuración estándar"
+msgid "Confirmar con Hosting si es configuración estándar"
 msgstr ""
 
 #: emergency-cleanup.php:213

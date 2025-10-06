@@ -3,7 +3,7 @@
  * Plugin Name: Emergency Security Cleanup
  * Plugin URI: https://github.com/aredos/emergency-cleanup
  * Description: Plugin de emergencia para limpieza automática de malware después del compromiso del servidor. Incluye detección avanzada, backup automático y verificación de integridad.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires at least: 5.0
  * Tested up to: 6.4
  * Requires PHP: 7.4
@@ -32,7 +32,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Definir constantes del plugin
-define('EMERGENCY_CLEANUP_VERSION', '1.0.0');
+define('EMERGENCY_CLEANUP_VERSION', '1.2.0');
 define('EMERGENCY_CLEANUP_PLUGIN_FILE', __FILE__);
 define('EMERGENCY_CLEANUP_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('EMERGENCY_CLEANUP_PLUGIN_URL', plugin_dir_url(__FILE__));
@@ -138,7 +138,6 @@ class EmergencySecurityCleanup {
             'Hellos',
             'wp-reforming-itself',
             'advanced-nocaptcha-recaptcha-old',
-            'google-pagespeed-insights',
             're-add-text-justify-button',
             'slideshow-jquery-image-galleryNO',
         ];
@@ -222,7 +221,7 @@ class EmergencySecurityCleanup {
                 $malicious_server_file = '/usr/share/php/rate_from_php_set_envs.php';
                 if (file_exists($malicious_server_file)) {
                     echo '<p style="color:orange;"><strong>⚠️ ' . esc_html__('Archivo de hosting detectado', 'emergency-cleanup') . '</strong></p>';
-                    echo '<p>' . esc_html__('Hosting confirmó que es configuración estándar', 'emergency-cleanup') . '</p>';
+                    echo '<p>' . esc_html__('Confirmar con Hosting si es configuración estándar', 'emergency-cleanup') . '</p>';
                 } else {
                     echo '<p style="color:green;">✅ ' . esc_html__('No se detecta archivo a nivel servidor', 'emergency-cleanup') . '</p>';
                 }
@@ -292,22 +291,32 @@ class EmergencySecurityCleanup {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
                         <h3>Acciones Críticas:</h3>
-                        <ul style="list-style-type: none;">
-                            <li>☐ Cambiar contraseña WordPress admin</li>
-                            <li>☐ Cambiar contraseña base de datos</li>
-                            <li>☐ Cambiar credenciales FTP</li>
-                            <li>☐ Regenerar claves seguridad WordPress</li>
-                            <li>☐ Reconectar Jetpack (si aplica)</li>
+                        <ul style="list-style-type: disc; padding-left: 20px;">
+                            <li>Cambiar contraseña WordPress admin</li>
+                            <li>Cambiar contraseña base de datos</li>
+                            <li>Cambiar credenciales FTP</li>
+                            <li>Regenerar claves seguridad WordPress</li>
+                            <li>Reconectar Jetpack (si aplica)</li>
                         </ul>
                     </div>
                     <div>
                         <h3>Seguridad Futura:</h3>
-                        <ul style="list-style-type: none;">
-                            <li>☐ Instalar Wordfence</li>
-                            <li>☐ Instalar WP Activity Log</li>
-                            <li>☐ Configurar backups automáticos</li>
-                            <li>☐ Actualizar WordPress y plugins</li>
-                            <li>☐ Eliminar este plugin tras limpieza</li>
+                        <ul style="list-style-type: disc; padding-left: 20px;">
+                            <?php if (!$this->is_plugin_installed('wordfence/wordfence.php')): ?>
+                            <li>Instalar Wordfence Security</li>
+                            <?php else: ?>
+                            <li style="list-style-type: none;">✅ Wordfence Security instalado</li>
+                            <?php endif; ?>
+                            
+                            <?php if (!$this->is_plugin_installed('wp-security-audit-log/wp-security-audit-log.php')): ?>
+                            <li>Instalar WP Activity Log</li>
+                            <?php else: ?>
+                            <li style="list-style-type: none;">✅ WP Activity Log instalado</li>
+                            <?php endif; ?>
+                            
+                            <li>Configurar backups automáticos</li>
+                            <li>Actualizar WordPress y plugins</li>
+                            <li>Eliminar este plugin tras limpieza</li>
                         </ul>
                     </div>
                 </div>
@@ -317,8 +326,18 @@ class EmergencySecurityCleanup {
                 <h2>🔧 Enlaces Rápidos</h2>
                 <p>
                     <a href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank" class="button">🔑 Generar Claves WordPress</a>
+                    
+                    <?php if (!$this->is_plugin_installed('wordfence/wordfence.php')): ?>
                     <a href="<?php echo admin_url('plugin-install.php?s=wordfence&tab=search&type=term'); ?>" class="button">🛡️ Instalar Wordfence</a>
+                    <?php else: ?>
+                    <a href="<?php echo admin_url('admin.php?page=Wordfence'); ?>" class="button">🛡️ Abrir Wordfence</a>
+                    <?php endif; ?>
+                    
+                    <?php if (!$this->is_plugin_installed('wp-security-audit-log/wp-security-audit-log.php')): ?>
                     <a href="<?php echo admin_url('plugin-install.php?s=wp-activity-log&tab=search&type=term'); ?>" class="button">📋 Instalar WP Activity Log</a>
+                    <?php else: ?>
+                    <a href="<?php echo admin_url('admin.php?page=wsal-auditlog'); ?>" class="button">📋 Abrir Activity Log</a>
+                    <?php endif; ?>
                 </p>
             </div>
         </div>
@@ -836,12 +855,28 @@ class EmergencySecurityCleanup {
         if ($deleted_count > 0) {
             $this->log[] = "";
             $this->log[] = "⚠️ ACCIONES CRÍTICAS PENDIENTES:";
-            $this->log[] = "1. 🔐 Cambiar contraseña WordPress admin";
-            $this->log[] = "2. 🗄️ Cambiar contraseña base de datos";
-            $this->log[] = "3. 📁 Cambiar credenciales FTP";
-            $this->log[] = "4. 🔑 Regenerar claves de seguridad WordPress";
-            $this->log[] = "5. 🛡️ Instalar Wordfence Security";
-            $this->log[] = "6. 📋 Instalar WP Activity Log";
+            
+            $action_number = 1;
+            $this->log[] = "{$action_number}. 🔐 Cambiar contraseña WordPress admin";
+            $action_number++;
+            $this->log[] = "{$action_number}. 🗄️ Cambiar contraseña base de datos";
+            $action_number++;
+            $this->log[] = "{$action_number}. 📁 Cambiar credenciales FTP";
+            $action_number++;
+            $this->log[] = "{$action_number}. 🔑 Regenerar claves de seguridad WordPress";
+            $action_number++;
+            
+            // Verificar si Wordfence está instalado
+            if (!$this->is_plugin_installed('wordfence/wordfence.php')) {
+                $this->log[] = "{$action_number}. 🛡️ Instalar Wordfence Security";
+                $action_number++;
+            }
+            
+            // Verificar si WP Activity Log está instalado
+            if (!$this->is_plugin_installed('wp-security-audit-log/wp-security-audit-log.php')) {
+                $this->log[] = "{$action_number}. 📋 Instalar WP Activity Log";
+                $action_number++;
+            }
         } else {
             $this->log[] = "✅ No se encontraron elementos maliciosos para eliminar";
         }
@@ -849,6 +884,17 @@ class EmergencySecurityCleanup {
         wp_send_json_success([
             'html' => implode("\n", $this->log)
         ]);
+    }
+    
+    /**
+     * Verifica si un plugin está instalado
+     */
+    private function is_plugin_installed($plugin_path) {
+        if (!function_exists('get_plugins')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $all_plugins = get_plugins();
+        return isset($all_plugins[$plugin_path]);
     }
     
     /**

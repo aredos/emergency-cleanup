@@ -76,6 +76,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2024-01-XX
+
+### Added
+- **🔍 Detección de Carpetas NO Registradas en Plugins**: Nueva función que detecta carpetas en `/wp-content/plugins/` que no están registradas en WordPress
+  - Identifica backdoors ocultos que no aparecen en la lista de plugins
+  - Clasificación por severidad (Crítico, Alto, Bajo)
+  - Limpieza automática solo de carpetas con severidad Alta o Crítica
+- **✅ Verificación Inteligente de Plugins Instalados**: Detecta si Wordfence y WP Activity Log ya están instalados
+  - Enlaces dinámicos que cambian entre "Instalar" y "Abrir" según el estado
+  - Checklist contextual que solo muestra plugins faltantes
+  - Numeración dinámica de acciones pendientes
+
+### Improved
+- **🎨 UI del Checklist**: Cambio de símbolos confusos (☐) por bullets HTML reales (•)
+  - Mejor experiencia de usuario
+  - No parece checkbox interactivo
+  - Items con ✅ no muestran bullet
+- **🧹 Lista Negra de Plugins**: Eliminado `google-pagespeed-insights` para evitar falsos positivos
+  - Puede ser un plugin legítimo de Google
+  - La detección de carpetas NO registradas lo detectará si es malware
+
+### Changed
+- **Versión**: Actualizada de 1.1.0 a 1.2.0
+- **Detección de Backdoors**: Ahora detecta 3 tipos de nombres sospechosos adicionales (shell, backdoor, hack, c99, r57, wso, adminer, bypass)
+
+### Technical
+- Added `is_plugin_installed()` function to check plugin installation status
+- Added `scan_unregistered_plugin_folders()` function with severity classification
+- Enhanced cleanup process to handle unregistered plugin folders
+- Dynamic UI rendering based on installed plugins detection
+
 ## [1.1.0] - 2024-01-XX
 
 ### Added
@@ -172,6 +203,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **1.2.0** - Unregistered plugin folder detection, intelligent plugin verification, and UI improvements
 - **1.1.0** - Advanced heuristic analysis, duplicate detection, typosquatting detection, and smart false positive reduction
 - **1.0.0** - Initial release with core security cleanup functionality
 - **Future versions** - Will follow semantic versioning (MAJOR.MINOR.PATCH)
