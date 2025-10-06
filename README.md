@@ -2,10 +2,11 @@
 
 **Plugin de emergencia para limpieza automática de malware después del compromiso del servidor**
 
-[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/aredos/emergency-cleanup)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/aredos/emergency-cleanup)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-green.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-GPL%20v2-orange.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Tested up to](https://img.shields.io/badge/tested%20up%20to-WP%206.7-brightgreen.svg)](https://wordpress.org/)
 
 ## 📋 Descripción
 
@@ -610,40 +611,18 @@ Para soporte técnico:
 
 ## ⚡ Changelog
 
-### **Versión 1.2.0** (2024-01-XX)
-- 🔍 **Detección de Carpetas NO Registradas**: Detecta carpetas en `/plugins/` que no están registradas en WordPress (backdoors ocultos)
-- 🎯 **Clasificación por Severidad**: Carpetas NO registradas clasificadas en 3 niveles (Crítico, Alto, Bajo)
-- 🗑️ **Limpieza Selectiva**: Solo elimina carpetas NO registradas con severidad Alta o Crítica
-- ✅ **Verificación Inteligente de Plugins**: Detecta si Wordfence y WP Activity Log ya están instalados
-- 🔗 **Enlaces Dinámicos**: Botones que cambian según si los plugins están instalados (Instalar vs Abrir)
-- 📋 **Checklist Contextual**: Solo muestra recomendaciones de plugins que no están instalados
-- 🎨 **UI Mejorada**: Cambio de checkboxes confusos (☐) por bullets reales (•)
-- 🧹 **Lista Negra Refinada**: Eliminado `google-pagespeed-insights` para evitar falsos positivos
+Para ver el historial completo de cambios y versiones, consulta el archivo **[CHANGELOG.md](CHANGELOG.md)**.
 
-### **Versión 1.1** (2024-01-XX)
-- 🧬 **Sistema de Análisis Heurístico**: Detección de anomalías basada en baseline esperado
-- 📊 **Contador de Archivos**: Estadísticas detalladas por directorio (themes, plugins, uploads)
-- 🔍 **Detección de Duplicados**: Identifica 15+ patrones de backups sospechosos (.bak, .old, .save)
-- 🎭 **Detección de Typosquatting**: Identifica archivos con nombres engañosos (adrnin.php, wp-lgin.php)
-- 🛡️ **Verificación Avanzada de index.php**: 12 verificaciones de seguridad multi-capa
-- 🧠 **Sistema Multi-Patrón**: Requiere 2+ coincidencias para reducir falsos positivos
-- 📋 **25+ Patrones Refinados**: Detección más precisa de malware
-- ✅ **Whitelist Inteligente**: Excluye Wordfence, iThemes, Sucuri y otros plugins de seguridad
-- 🗄️ **Escaneo Inteligente de BBDD**: Distingue código malicioso real de contenido educativo
-- 🚨 **Detección de File Spam**: Alerta sobre inyección masiva de archivos (>100 en uploads)
-- ⚡ **Optimización de Rendimiento**: Límites de 1MB por archivo y 5,000 archivos por directorio
+### Última Versión: **1.3.0**
 
-### **Versión 1.0** (2025-06-01)
-- ✨ Lanzamiento inicial
-- 🔍 Detección básica de malware
-- 🧹 Limpieza automática
-- 💾 Sistema de backup
-- 🔍 Escaneo de contenido de archivos
-- 🗄️ Verificación de base de datos
-- ✅ Verificación de integridad WordPress
-- 🎨 Interfaz mejorada con barra de progreso
-- 🔐 Generador de contraseñas seguras
-- 📋 Lista de verificación post-limpieza
+**✅ Cumplimiento WordPress.org Coding Standards**
+- Correcciones de Text Domain
+- Escape de seguridad en todas las salidas
+- Placeholders ordenados en traducciones
+- Comentarios translators añadidos
+- Supresión justificada de consultas directas a BD
+
+[Ver changelog completo →](CHANGELOG.md)
 
 ---
 

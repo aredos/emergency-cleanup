@@ -3,15 +3,15 @@
  * Plugin Name: Emergency Security Cleanup
  * Plugin URI: https://github.com/aredos/emergency-cleanup
  * Description: Plugin de emergencia para limpieza automática de malware después del compromiso del servidor. Incluye detección avanzada, backup automático y verificación de integridad.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires at least: 5.0
- * Tested up to: 6.4
+ * Tested up to: 6.7
  * Requires PHP: 7.4
  * Author: Aredos
  * Author URI: https://github.com/aredos
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: emergency-cleanup
+ * Text Domain: Emergency_Cleanup
  * Domain Path: /languages
  * Network: false
  * 
@@ -32,7 +32,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Definir constantes del plugin
-define('EMERGENCY_CLEANUP_VERSION', '1.2.0');
+define('EMERGENCY_CLEANUP_VERSION', '1.3.0');
 define('EMERGENCY_CLEANUP_PLUGIN_FILE', __FILE__);
 define('EMERGENCY_CLEANUP_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('EMERGENCY_CLEANUP_PLUGIN_URL', plugin_dir_url(__FILE__));
@@ -48,8 +48,8 @@ function emergency_cleanup_activate() {
     // Verificar versión mínima de WordPress
     if (version_compare(get_bloginfo('version'), '5.0', '<')) {
         wp_die(
-            esc_html__('Emergency Security Cleanup requiere WordPress 5.0 o superior.', 'emergency-cleanup'),
-            esc_html__('Error de activación', 'emergency-cleanup'),
+            esc_html__('Emergency Security Cleanup requiere WordPress 5.0 o superior.', 'Emergency_Cleanup'),
+            esc_html__('Error de activación', 'Emergency_Cleanup'),
             array('back_link' => true)
         );
     }
@@ -57,8 +57,8 @@ function emergency_cleanup_activate() {
     // Verificar versión mínima de PHP
     if (version_compare(PHP_VERSION, '7.4', '<')) {
         wp_die(
-            esc_html__('Emergency Security Cleanup requiere PHP 7.4 o superior.', 'emergency-cleanup'),
-            esc_html__('Error de activación', 'emergency-cleanup'),
+            esc_html__('Emergency Security Cleanup requiere PHP 7.4 o superior.', 'Emergency_Cleanup'),
+            esc_html__('Error de activación', 'Emergency_Cleanup'),
             array('back_link' => true)
         );
     }
@@ -105,7 +105,7 @@ class EmergencySecurityCleanup {
      */
     public function load_textdomain() {
         load_plugin_textdomain(
-            'emergency-cleanup',
+            'Emergency_Cleanup',
             false,
             dirname(plugin_basename(EMERGENCY_CLEANUP_PLUGIN_FILE)) . '/languages'
         );
@@ -210,63 +210,63 @@ class EmergencySecurityCleanup {
             <h1>🚨 Emergency Security Cleanup</h1>
             
             <div class="notice notice-error">
-                <p><strong><?php esc_html_e('ADVERTENCIA:', 'emergency-cleanup'); ?></strong> <?php esc_html_e('Este plugin eliminará archivos automáticamente. Asegúrate de tener backup antes de continuar.', 'emergency-cleanup'); ?></p>
+                <p><strong><?php esc_html_e('ADVERTENCIA:', 'Emergency_Cleanup'); ?></strong> <?php esc_html_e('Este plugin eliminará archivos automáticamente. Asegúrate de tener backup antes de continuar.', 'Emergency_Cleanup'); ?></p>
             </div>
             
             <div class="card">
-                <h2><?php esc_html_e('Verificación de Servidor', 'emergency-cleanup'); ?></h2>
-                <p><strong><?php esc_html_e('Sitio:', 'emergency-cleanup'); ?></strong> <?php echo esc_url(get_site_url()); ?></p>
-                <p><strong><?php esc_html_e('auto_prepend_file:', 'emergency-cleanup'); ?></strong> <?php echo esc_html(ini_get('auto_prepend_file') ?: __('No configurado', 'emergency-cleanup')); ?></p>
+                <h2><?php esc_html_e('Verificación de Servidor', 'Emergency_Cleanup'); ?></h2>
+                <p><strong><?php esc_html_e('Sitio:', 'Emergency_Cleanup'); ?></strong> <?php echo esc_url(get_site_url()); ?></p>
+                <p><strong><?php esc_html_e('auto_prepend_file:', 'Emergency_Cleanup'); ?></strong> <?php echo esc_html(ini_get('auto_prepend_file') ?: __('No configurado', 'Emergency_Cleanup')); ?></p>
                 <?php
                 $malicious_server_file = '/usr/share/php/rate_from_php_set_envs.php';
                 if (file_exists($malicious_server_file)) {
-                    echo '<p style="color:orange;"><strong>⚠️ ' . esc_html__('Archivo de hosting detectado', 'emergency-cleanup') . '</strong></p>';
-                    echo '<p>' . esc_html__('Confirmar con Hosting si es configuración estándar', 'emergency-cleanup') . '</p>';
+                    echo '<p style="color:orange;"><strong>⚠️ ' . esc_html__('Archivo de hosting detectado', 'Emergency_Cleanup') . '</strong></p>';
+                    echo '<p>' . esc_html__('Confirmar con Hosting si es configuración estándar', 'Emergency_Cleanup') . '</p>';
                 } else {
-                    echo '<p style="color:green;">✅ ' . esc_html__('No se detecta archivo a nivel servidor', 'emergency-cleanup') . '</p>';
+                    echo '<p style="color:green;">✅ ' . esc_html__('No se detecta archivo a nivel servidor', 'Emergency_Cleanup') . '</p>';
                 }
                 ?>
             </div>
             
             <div class="card">
-                <h2><?php esc_html_e('Escaneo y Limpieza Automática', 'emergency-cleanup'); ?></h2>
+                <h2><?php esc_html_e('Escaneo y Limpieza Automática', 'Emergency_Cleanup'); ?></h2>
                 <div class="scan-options">
                     <label for="enable-backup">
                         <input type="checkbox" id="enable-backup" checked> 
-                        💾 <?php esc_html_e('Crear backup antes de eliminar', 'emergency-cleanup'); ?>
+                        💾 <?php esc_html_e('Crear backup antes de eliminar', 'Emergency_Cleanup'); ?>
                     </label><br>
                     <label for="scan-content">
                         <input type="checkbox" id="scan-content" checked> 
-                        🔍 <?php esc_html_e('Escanear contenido de archivos', 'emergency-cleanup'); ?>
+                        🔍 <?php esc_html_e('Escanear contenido de archivos', 'Emergency_Cleanup'); ?>
                     </label><br>
                     <label for="scan-database">
                         <input type="checkbox" id="scan-database" checked> 
-                        🗄️ <?php esc_html_e('Verificar base de datos', 'emergency-cleanup'); ?>
+                        🗄️ <?php esc_html_e('Verificar base de datos', 'Emergency_Cleanup'); ?>
                     </label><br>
                     <label for="verify-integrity">
                         <input type="checkbox" id="verify-integrity" checked> 
-                        ✅ <?php esc_html_e('Verificar integridad WordPress', 'emergency-cleanup'); ?>
+                        ✅ <?php esc_html_e('Verificar integridad WordPress', 'Emergency_Cleanup'); ?>
                     </label>
                 </div>
                 <br>
                 <button type="button" class="button button-primary" id="start-scan" aria-describedby="scan-description">
-                    🔍 <?php esc_html_e('Iniciar Escaneo Completo', 'emergency-cleanup'); ?>
+                    🔍 <?php esc_html_e('Iniciar Escaneo Completo', 'Emergency_Cleanup'); ?>
                 </button>
                 <button type="button" class="button button-secondary" id="start-cleanup" style="display:none;" aria-describedby="cleanup-description">
-                    🧹 <?php esc_html_e('Iniciar Limpieza', 'emergency-cleanup'); ?>
+                    🧹 <?php esc_html_e('Iniciar Limpieza', 'Emergency_Cleanup'); ?>
                 </button>
                 <button type="button" class="button" id="scan-all" aria-describedby="scan-only-description">
-                    📊 <?php esc_html_e('Solo Escanear (Sin Limpiar)', 'emergency-cleanup'); ?>
+                    📊 <?php esc_html_e('Solo Escanear (Sin Limpiar)', 'Emergency_Cleanup'); ?>
                 </button>
                 
                 <div id="scan-description" class="screen-reader-text">
-                    <?php esc_html_e('Inicia un escaneo completo del sitio en busca de malware y permite la limpieza automática', 'emergency-cleanup'); ?>
+                    <?php esc_html_e('Inicia un escaneo completo del sitio en busca de malware y permite la limpieza automática', 'Emergency_Cleanup'); ?>
                 </div>
                 <div id="cleanup-description" class="screen-reader-text">
-                    <?php esc_html_e('Elimina automáticamente todos los archivos maliciosos detectados', 'emergency-cleanup'); ?>
+                    <?php esc_html_e('Elimina automáticamente todos los archivos maliciosos detectados', 'Emergency_Cleanup'); ?>
                 </div>
                 <div id="scan-only-description" class="screen-reader-text">
-                    <?php esc_html_e('Ejecuta solo el escaneo de diagnóstico sin eliminar archivos', 'emergency-cleanup'); ?>
+                    <?php esc_html_e('Ejecuta solo el escaneo de diagnóstico sin eliminar archivos', 'Emergency_Cleanup'); ?>
                 </div>
                 
                 <div id="progress-bar" style="margin-top: 20px; display:none;">
@@ -328,15 +328,15 @@ class EmergencySecurityCleanup {
                     <a href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank" class="button">🔑 Generar Claves WordPress</a>
                     
                     <?php if (!$this->is_plugin_installed('wordfence/wordfence.php')): ?>
-                    <a href="<?php echo admin_url('plugin-install.php?s=wordfence&tab=search&type=term'); ?>" class="button">🛡️ Instalar Wordfence</a>
+                    <a href="<?php echo esc_url(admin_url('plugin-install.php?s=wordfence&tab=search&type=term')); ?>" class="button">🛡️ Instalar Wordfence</a>
                     <?php else: ?>
-                    <a href="<?php echo admin_url('admin.php?page=Wordfence'); ?>" class="button">🛡️ Abrir Wordfence</a>
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=Wordfence')); ?>" class="button">🛡️ Abrir Wordfence</a>
                     <?php endif; ?>
                     
                     <?php if (!$this->is_plugin_installed('wp-security-audit-log/wp-security-audit-log.php')): ?>
-                    <a href="<?php echo admin_url('plugin-install.php?s=wp-activity-log&tab=search&type=term'); ?>" class="button">📋 Instalar WP Activity Log</a>
+                    <a href="<?php echo esc_url(admin_url('plugin-install.php?s=wp-activity-log&tab=search&type=term')); ?>" class="button">📋 Instalar WP Activity Log</a>
                     <?php else: ?>
-                    <a href="<?php echo admin_url('admin.php?page=wsal-auditlog'); ?>" class="button">📋 Abrir Activity Log</a>
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=wsal-auditlog')); ?>" class="button">📋 Abrir Activity Log</a>
                     <?php endif; ?>
                 </p>
             </div>
@@ -371,7 +371,7 @@ class EmergencySecurityCleanup {
                     action: 'emergency_cleanup',
                     operation: 'scan',
                     options: options,
-                    nonce: '<?php echo wp_create_nonce('emergency_cleanup'); ?>'
+                    nonce: '<?php echo esc_attr(wp_create_nonce('emergency_cleanup')); ?>'
                 }, function(response) {
                     $('#progress-bar').hide();
                     if (response.success) {
@@ -396,7 +396,7 @@ class EmergencySecurityCleanup {
                 $.post(ajaxurl, {
                     action: 'emergency_cleanup',
                     operation: 'cleanup',
-                    nonce: '<?php echo wp_create_nonce('emergency_cleanup'); ?>'
+                    nonce: '<?php echo esc_attr(wp_create_nonce('emergency_cleanup')); ?>'
                 }, function(response) {
                     if (response.success) {
                         $('#cleanup-log').html(response.data.html);
@@ -499,17 +499,17 @@ class EmergencySecurityCleanup {
     public function perform_cleanup() {
         // Verificar que sea una petición AJAX
         if (!wp_doing_ajax()) {
-            wp_die(esc_html__('Acceso no autorizado', 'emergency-cleanup'));
+            wp_die(esc_html__('Acceso no autorizado', 'Emergency_Cleanup'));
         }
         
         // Verificar nonce de seguridad
         if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'emergency_cleanup')) {
-            wp_send_json_error(esc_html__('Verificación de seguridad fallida', 'emergency-cleanup'));
+            wp_send_json_error(esc_html__('Verificación de seguridad fallida', 'Emergency_Cleanup'));
         }
         
         // Verificar permisos
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(esc_html__('Permisos insuficientes', 'emergency-cleanup'));
+            wp_send_json_error(esc_html__('Permisos insuficientes', 'Emergency_Cleanup'));
         }
         
         // Sanitizar y validar entrada
@@ -518,7 +518,7 @@ class EmergencySecurityCleanup {
         
         // Validar operación
         if (!in_array($operation, array('scan', 'cleanup'), true)) {
-            wp_send_json_error(esc_html__('Operación no válida', 'emergency-cleanup'));
+            wp_send_json_error(esc_html__('Operación no válida', 'Emergency_Cleanup'));
         }
         
         // Ejecutar operación
@@ -1632,26 +1632,29 @@ class EmergencySecurityCleanup {
         
         // Verificar que tenemos acceso a la base de datos
         if (!$wpdb->db_connect()) {
-            return array(esc_html__('No se pudo conectar a la base de datos', 'emergency-cleanup'));
+            return array(esc_html__('No se pudo conectar a la base de datos', 'Emergency_Cleanup'));
         }
         
         // Verificar tablas sospechosas
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Necesario para escaneo de seguridad de todas las tablas de la base de datos.
         $tables = $wpdb->get_results("SHOW TABLES", ARRAY_N);
         if (is_wp_error($tables)) {
-            return array(esc_html__('Error al obtener lista de tablas', 'emergency-cleanup'));
+            return array(esc_html__('Error al obtener lista de tablas', 'Emergency_Cleanup'));
         }
         
         foreach ($tables as $table) {
             $table_name = sanitize_text_field($table[0]);
             
             // Buscar columnas sospechosas
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Necesario para escaneo de seguridad de estructura de tablas.
             $columns = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM `%s`", $table_name), ARRAY_A);
             if (!is_wp_error($columns)) {
                 foreach ($columns as $column) {
                     $field_name = sanitize_text_field($column['Field']);
                     if (preg_match('/eval|base64|shell|exec|system/i', $field_name)) {
+                        // translators: %1$s is the suspicious column name, %2$s is the table name
                         $issues[] = sprintf(
-                            esc_html__('Columna sospechosa "%s" en tabla "%s"', 'emergency-cleanup'),
+                            esc_html__('Columna sospechosa "%1$s" en tabla "%2$s"', 'Emergency_Cleanup'),
                             esc_html($field_name),
                             esc_html($table_name)
                         );
@@ -1662,6 +1665,7 @@ class EmergencySecurityCleanup {
             // Buscar contenido malicioso en posts (patrones de código real, no solo menciones)
             if ($table_name === $wpdb->posts) {
                 // Buscar PATRONES DE CÓDIGO EJECUTABLE, no solo palabras sueltas
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Escaneo de seguridad en tiempo real para detección de malware, no requiere caché.
                 $malicious_posts = $wpdb->get_results($wpdb->prepare("
                     SELECT ID, post_title, post_content 
                     FROM {$wpdb->posts} 
@@ -1696,8 +1700,9 @@ class EmergencySecurityCleanup {
                         $is_malicious = $this->verify_malicious_post_content($post->post_content);
                         
                         if ($is_malicious) {
+                            // translators: %1$d is the post ID, %2$s is the post title
                             $issues[] = sprintf(
-                                esc_html__('Post sospechoso ID %d: %s', 'emergency-cleanup'),
+                                esc_html__('Post sospechoso ID %1$d: %2$s', 'Emergency_Cleanup'),
                                 intval($post->ID),
                                 esc_html($post->post_title)
                             );
@@ -1784,13 +1789,15 @@ class EmergencySecurityCleanup {
         foreach ($core_files as $file) {
             $file_path = ABSPATH . $file;
             if (!file_exists($file_path)) {
+                // translators: %s is the missing core file name
                 $issues[] = sprintf(
-                    esc_html__('Archivo core faltante: %s', 'emergency-cleanup'),
+                    esc_html__('Archivo core faltante: %s', 'Emergency_Cleanup'),
                     esc_html($file)
                 );
             } elseif (filesize($file_path) < 100) {
+                // translators: %s is the suspicious core file name
                 $issues[] = sprintf(
-                    esc_html__('Archivo core sospechoso (muy pequeño): %s', 'emergency-cleanup'),
+                    esc_html__('Archivo core sospechoso (muy pequeño): %s', 'Emergency_Cleanup'),
                     esc_html($file)
                 );
             }
@@ -1801,7 +1808,7 @@ class EmergencySecurityCleanup {
         if (file_exists($htaccess_path)) {
             $htaccess_content = file_get_contents($htaccess_path);
             if ($htaccess_content && preg_match('/eval|base64|shell_exec|system/i', $htaccess_content)) {
-                $issues[] = esc_html__('Contenido sospechoso en .htaccess', 'emergency-cleanup');
+                $issues[] = esc_html__('Contenido sospechoso en .htaccess', 'Emergency_Cleanup');
             }
         }
         
@@ -1816,8 +1823,9 @@ class EmergencySecurityCleanup {
             if (file_exists($file_path)) {
                 $actual_perms = fileperms($file_path) & 0777;
                 if ($actual_perms !== $expected_perms) {
+                    // translators: %1$s is the file name, %2$o is the actual permissions, %3$o is the expected permissions
                     $issues[] = sprintf(
-                        esc_html__('Permisos incorrectos en %s (actual: %o, esperado: %o)', 'emergency-cleanup'),
+                        esc_html__('Permisos incorrectos en %1$s (actual: %2$o, esperado: %3$o)', 'Emergency_Cleanup'),
                         esc_html($file),
                         $actual_perms,
                         $expected_perms
