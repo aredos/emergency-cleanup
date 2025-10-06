@@ -515,7 +515,7 @@ Para soporte técnico:
 
 ## ⚡ Changelog
 
-### **Versión 1.1** (2024-01-XX)
+### **Versión 1.1** (2025-09-01)
 - 🧬 **Sistema de Análisis Heurístico**: Detección de anomalías basada en baseline esperado
 - 📊 **Contador de Archivos**: Estadísticas detalladas por directorio (themes, plugins, uploads)
 - 🔍 **Detección de Duplicados**: Identifica 15+ patrones de backups sospechosos (.bak, .old, .save)
@@ -526,6 +526,7 @@ Para soporte técnico:
 - ✅ **Whitelist Inteligente**: Excluye Wordfence, iThemes, Sucuri y otros plugins de seguridad
 - 🗄️ **Escaneo Inteligente de BBDD**: Distingue código malicioso real de contenido educativo
 - 🚨 **Detección de File Spam**: Alerta sobre inyección masiva de archivos (>100 en uploads)
+- 🚨 **Detección de Carpetas backdoor NO registradas**
 - ⚡ **Optimización de Rendimiento**: Límites de 1MB por archivo y 5,000 archivos por directorio
 
 ### **Versión 1.0** (2025-06-01)
@@ -543,3 +544,4 @@ Para soporte técnico:
 ---
 
 **⚠️ Recuerda: Este plugin es para emergencias. Elimínalo después de la limpieza y mantén tu sitio seguro con herramientas de seguridad permanentes.**
+
