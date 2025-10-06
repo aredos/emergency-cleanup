@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="Emergency Security Cleanup">
+    <description>WordPress Coding Standards for Emergency Security Cleanup plugin</description>
+    
+    <!-- What to scan -->
+    <file>emergency-cleanup.php</file>
+    
+    <!-- How to scan -->
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg value="p"/>
+    
+    <!-- Rules: Check WordPress Coding Standards -->
+    <rule ref="WordPress">
+        <!-- Allow short array syntax -->
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+        
+        <!-- Allow camelCase for private methods -->
+        <exclude name="Squiz.NamingConventions.ValidFunctionName.MethodName"/>
+        
+        <!-- Allow long lines for URLs -->
+        <exclude name="Generic.Files.LineLength"/>
+        
+        <!-- Allow multiple statements on same line for short conditions -->
+        <exclude name="Generic.Formatting.DisallowMultipleStatements"/>
+    </rule>
+    
+    <!-- Check PHP version compatibility -->
+    <config name="minimum_supported_wp_version" value="5.0"/>
+    <config name="testVersion" value="7.4"/>
+    
+    <!-- Exclude certain directories -->
+    <exclude-pattern>*/languages/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+</ruleset>

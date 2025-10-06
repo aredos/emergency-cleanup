@@ -1,0 +1,155 @@
+# Copyright (C) 2024 Aredos
+# This file is distributed under the same license as the Emergency Security Cleanup package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Emergency Security Cleanup 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/aredos/emergency-cleanup/issues\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: WordPress\n"
+
+#: emergency-cleanup.php:51
+msgid "Emergency Security Cleanup requiere WordPress 5.0 o superior."
+msgstr ""
+
+#: emergency-cleanup.php:52
+msgid "Error de activación"
+msgstr ""
+
+#: emergency-cleanup.php:60
+msgid "Emergency Security Cleanup requiere PHP 7.4 o superior."
+msgstr ""
+
+#: emergency-cleanup.php:200
+msgid "ADVERTENCIA:"
+msgstr ""
+
+#: emergency-cleanup.php:200
+msgid "Este plugin eliminará archivos automáticamente. Asegúrate de tener backup antes de continuar."
+msgstr ""
+
+#: emergency-cleanup.php:204
+msgid "Verificación de Servidor"
+msgstr ""
+
+#: emergency-cleanup.php:205
+msgid "Sitio:"
+msgstr ""
+
+#: emergency-cleanup.php:206
+msgid "auto_prepend_file:"
+msgstr ""
+
+#: emergency-cleanup.php:206
+msgid "No configurado"
+msgstr ""
+
+#: emergency-cleanup.php:210
+msgid "Archivo de hosting detectado"
+msgstr ""
+
+#: emergency-cleanup.php:211
+msgid "Hosting confirmó que es configuración estándar"
+msgstr ""
+
+#: emergency-cleanup.php:213
+msgid "No se detecta archivo a nivel servidor"
+msgstr ""
+
+#: emergency-cleanup.php:219
+msgid "Escaneo y Limpieza Automática"
+msgstr ""
+
+#: emergency-cleanup.php:223
+msgid "Crear backup antes de eliminar"
+msgstr ""
+
+#: emergency-cleanup.php:228
+msgid "Escanear contenido de archivos"
+msgstr ""
+
+#: emergency-cleanup.php:233
+msgid "Verificar base de datos"
+msgstr ""
+
+#: emergency-cleanup.php:238
+msgid "Verificar integridad WordPress"
+msgstr ""
+
+#: emergency-cleanup.php:240
+msgid "Iniciar Escaneo Completo"
+msgstr ""
+
+#: emergency-cleanup.php:243
+msgid "Iniciar Limpieza"
+msgstr ""
+
+#: emergency-cleanup.php:246
+msgid "Solo Escanear (Sin Limpiar)"
+msgstr ""
+
+#: emergency-cleanup.php:250
+msgid "Inicia un escaneo completo del sitio en busca de malware y permite la limpieza automática"
+msgstr ""
+
+#: emergency-cleanup.php:253
+msgid "Elimina automáticamente todos los archivos maliciosos detectados"
+msgstr ""
+
+#: emergency-cleanup.php:256
+msgid "Ejecuta solo el escaneo de diagnóstico sin eliminar archivos"
+msgstr ""
+
+#: emergency-cleanup.php:428
+msgid "Acceso no autorizado"
+msgstr ""
+
+#: emergency-cleanup.php:433
+msgid "Verificación de seguridad fallida"
+msgstr ""
+
+#: emergency-cleanup.php:437
+msgid "Permisos insuficientes"
+msgstr ""
+
+#: emergency-cleanup.php:447
+msgid "Operación no válida"
+msgstr ""
+
+#: emergency-cleanup.php:831
+msgid "No se pudo conectar a la base de datos"
+msgstr ""
+
+#: emergency-cleanup.php:837
+msgid "Error al obtener lista de tablas"
+msgstr ""
+
+#: emergency-cleanup.php:850
+msgid "Columna sospechosa \"%s\" en tabla \"%s\""
+msgstr ""
+
+#: emergency-cleanup.php:872
+msgid "Post sospechoso ID %d: %s"
+msgstr ""
+
+#: emergency-cleanup.php:912
+msgid "Archivo core faltante: %s"
+msgstr ""
+
+#: emergency-cleanup.php:917
+msgid "Archivo core sospechoso (muy pequeño): %s"
+msgstr ""
+
+#: emergency-cleanup.php:928
+msgid "Contenido sospechoso en .htaccess"
+msgstr ""
+
+#: emergency-cleanup.php:943
+msgid "Permisos incorrectos en %s (actual: %o, esperado: %o)"
+msgstr ""
