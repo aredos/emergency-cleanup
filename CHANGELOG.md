@@ -76,6 +76,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.1] - 2025-01-06
+
+### Fixed
+- **📝 Translator Comments Position**: Corrected position of translator comments to be immediately before `esc_html__()` calls instead of before `sprintf()` (5 instances)
+  - Line 1656-1657: Database column/table suspicious detection
+  - Line 1704-1705: Suspicious post ID/title detection
+  - Line 1793-1794: Missing core file detection
+  - Line 1799-1800: Suspicious core file detection
+  - Line 1827-1828: Incorrect file permissions detection
+
+### Technical
+- Translator comments must be placed directly before the translation function call per WordPress Coding Standards
+- This ensures proper extraction and context for translators in POT file generation
+
 ## [1.3.0] - 2025-01-06
 
 ### Fixed - WordPress.org Compliance
@@ -237,6 +251,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **1.3.1** - Translator comments position fix for WPCS compliance
 - **1.3.0** - WordPress.org coding standards compliance, security escaping, and translation improvements
 - **1.2.0** - Unregistered plugin folder detection, intelligent plugin verification, and UI improvements
 - **1.1.0** - Advanced heuristic analysis, duplicate detection, typosquatting detection, and smart false positive reduction

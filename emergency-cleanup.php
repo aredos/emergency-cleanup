@@ -3,7 +3,7 @@
  * Plugin Name: Emergency Security Cleanup
  * Plugin URI: https://github.com/aredos/emergency-cleanup
  * Description: Plugin de emergencia para limpieza automática de malware después del compromiso del servidor. Incluye detección avanzada, backup automático y verificación de integridad.
- * Version: 1.3.0
+ * Version: 1.3.1
  * Requires at least: 5.0
  * Tested up to: 6.7
  * Requires PHP: 7.4
@@ -32,7 +32,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Definir constantes del plugin
-define('EMERGENCY_CLEANUP_VERSION', '1.3.0');
+define('EMERGENCY_CLEANUP_VERSION', '1.3.1');
 define('EMERGENCY_CLEANUP_PLUGIN_FILE', __FILE__);
 define('EMERGENCY_CLEANUP_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('EMERGENCY_CLEANUP_PLUGIN_URL', plugin_dir_url(__FILE__));
@@ -1652,8 +1652,8 @@ class EmergencySecurityCleanup {
                 foreach ($columns as $column) {
                     $field_name = sanitize_text_field($column['Field']);
                     if (preg_match('/eval|base64|shell|exec|system/i', $field_name)) {
-                        // translators: %1$s is the suspicious column name, %2$s is the table name
                         $issues[] = sprintf(
+                            // translators: %1$s is the suspicious column name, %2$s is the table name
                             esc_html__('Columna sospechosa "%1$s" en tabla "%2$s"', 'Emergency_Cleanup'),
                             esc_html($field_name),
                             esc_html($table_name)
@@ -1700,8 +1700,8 @@ class EmergencySecurityCleanup {
                         $is_malicious = $this->verify_malicious_post_content($post->post_content);
                         
                         if ($is_malicious) {
-                            // translators: %1$d is the post ID, %2$s is the post title
                             $issues[] = sprintf(
+                                // translators: %1$d is the post ID, %2$s is the post title
                                 esc_html__('Post sospechoso ID %1$d: %2$s', 'Emergency_Cleanup'),
                                 intval($post->ID),
                                 esc_html($post->post_title)
@@ -1789,14 +1789,14 @@ class EmergencySecurityCleanup {
         foreach ($core_files as $file) {
             $file_path = ABSPATH . $file;
             if (!file_exists($file_path)) {
-                // translators: %s is the missing core file name
                 $issues[] = sprintf(
+                    // translators: %s is the missing core file name
                     esc_html__('Archivo core faltante: %s', 'Emergency_Cleanup'),
                     esc_html($file)
                 );
             } elseif (filesize($file_path) < 100) {
-                // translators: %s is the suspicious core file name
                 $issues[] = sprintf(
+                    // translators: %s is the suspicious core file name
                     esc_html__('Archivo core sospechoso (muy pequeño): %s', 'Emergency_Cleanup'),
                     esc_html($file)
                 );
@@ -1823,8 +1823,8 @@ class EmergencySecurityCleanup {
             if (file_exists($file_path)) {
                 $actual_perms = fileperms($file_path) & 0777;
                 if ($actual_perms !== $expected_perms) {
-                    // translators: %1$s is the file name, %2$o is the actual permissions, %3$o is the expected permissions
                     $issues[] = sprintf(
+                        // translators: %1$s is the file name, %2$o is the actual permissions, %3$o is the expected permissions
                         esc_html__('Permisos incorrectos en %1$s (actual: %2$o, esperado: %3$o)', 'Emergency_Cleanup'),
                         esc_html($file),
                         $actual_perms,
