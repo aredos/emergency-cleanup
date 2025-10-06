@@ -462,19 +462,113 @@ Un archivo es malicioso SI:
 
 ## 🤝 Contribuciones
 
+¡Las contribuciones son bienvenidas! Este es un proyecto de código abierto y valoramos cualquier aporte que ayude a mejorar la seguridad de WordPress.
+
 ### **Reportar Problemas**
+
 Si encuentras un bug o tienes una sugerencia:
 
-1. Abre un issue en GitHub
-2. Describe el problema detalladamente
-3. Incluye información del sistema (PHP, WordPress, etc.)
-4. Proporciona logs de error si es posible
+1. **Abre un [Issue](https://github.com/aredos/emergency-cleanup/issues/new)** en GitHub
+2. **Describe el problema detalladamente**
+   - ¿Qué estabas intentando hacer?
+   - ¿Qué esperabas que pasara?
+   - ¿Qué pasó en realidad?
+3. **Incluye información del sistema:**
+   - Versión de WordPress
+   - Versión de PHP
+   - Versión del plugin
+   - Sistema operativo del servidor
+4. **Proporciona logs de error** si están disponibles
 
 ### **Contribuir al Código**
-1. Fork el repositorio
-2. Crea una rama para tu feature
-3. Implementa tus cambios
-4. Envía un pull request
+
+Para contribuir con código, sigue estos pasos:
+
+#### 1. **Fork el Repositorio**
+```bash
+# Haz clic en el botón "Fork" en GitHub
+# Luego clona TU fork
+git clone https://github.com/TU-USUARIO/emergency-cleanup.git
+cd emergency-cleanup
+```
+
+#### 2. **Crea una Rama para tu Feature**
+```bash
+# Crea y cambia a una nueva rama
+git checkout -b feature/nombre-descriptivo
+
+# Ejemplos de nombres de rama:
+# - feature/deteccion-nuevos-backdoors
+# - fix/corregir-falso-positivo
+# - docs/actualizar-readme
+```
+
+#### 3. **Implementa tus Cambios**
+```bash
+# Haz tus cambios
+# Asegúrate de seguir los estándares de código de WordPress
+
+# Añade tus cambios
+git add .
+
+# Commit con mensaje descriptivo
+git commit -m "feat: descripción clara del cambio"
+```
+
+#### 4. **Push a tu Fork**
+```bash
+git push origin feature/nombre-descriptivo
+```
+
+#### 5. **Crea un Pull Request**
+- Ve a tu fork en GitHub
+- Haz clic en "Compare & pull request"
+- Describe tus cambios detalladamente
+- Espera la revisión y aprobación
+
+### **Guías de Contribución**
+
+#### **Estándares de Código**
+- ✅ Sigue los [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/)
+- ✅ Usa nombres de variables descriptivos en español (como el resto del código)
+- ✅ Comenta tu código, especialmente en áreas complejas
+- ✅ Asegúrate de que no haya errores de linting
+
+#### **Buenas Prácticas**
+- ✅ **Un cambio por Pull Request** - No mezcles múltiples features
+- ✅ **Tests** - Si es posible, añade casos de prueba
+- ✅ **Documentación** - Actualiza el README si añades funcionalidades
+- ✅ **Commits descriptivos** - Usa mensajes claros
+  ```
+  feat: añadir detección de nuevo tipo de malware
+  fix: corregir falso positivo en PHPMailer
+  docs: actualizar ejemplos en README
+  ```
+
+#### **Proceso de Revisión**
+1. Tu Pull Request será revisado por el mantenedor
+2. Puede haber comentarios o solicitudes de cambios
+3. Una vez aprobado, será fusionado a la rama `main`
+4. ¡Tu contribución será parte del proyecto! 🎉
+
+### **Tipos de Contribuciones Bienvenidas**
+
+- 🐛 **Corrección de Bugs** - Arregla problemas existentes
+- ✨ **Nuevas Funcionalidades** - Añade nuevas detecciones de malware
+- 📝 **Documentación** - Mejora el README, comentarios, ejemplos
+- 🎨 **Mejoras de UI** - Mejora la interfaz del plugin
+- 🔍 **Detección de Malware** - Añade nuevos patrones o técnicas
+- ⚡ **Optimización** - Mejora el rendimiento del plugin
+
+### **Importante**
+
+> **Nota:** Todos los Pull Requests requieren aprobación del mantenedor antes de ser fusionados. Esto garantiza la calidad y seguridad del código que protege sitios WordPress.
+
+### **¿Necesitas Ayuda?**
+
+- 💬 Abre un [Discussion](https://github.com/aredos/emergency-cleanup/discussions) para preguntas generales
+- 📧 Contacta al mantenedor: [info@aredos.com](mailto:info@aredos.com)
+- 📖 Consulta la [documentación de WordPress](https://developer.wordpress.org/)
 
 ## 📄 Licencia
 
