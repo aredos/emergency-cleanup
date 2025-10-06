@@ -2,7 +2,7 @@
 
 **Plugin de emergencia para limpieza automática de malware después del compromiso del servidor**
 
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/aredos/emergency-cleanup)
+[![Version](https://img.shields.io/badge/version-1.3.1-blue.svg)](https://github.com/aredos/emergency-cleanup)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-green.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-GPL%20v2-orange.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
@@ -613,7 +613,7 @@ Para soporte técnico:
 
 Para ver el historial completo de cambios y versiones, consulta el archivo **[CHANGELOG.md](CHANGELOG.md)**.
 
-### Última Versión: **1.3.0**
+### Última Versión: **1.3.1**
 
 **✅ Cumplimiento WordPress.org Coding Standards**
 - Correcciones de Text Domain
