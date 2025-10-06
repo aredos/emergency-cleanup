@@ -3,7 +3,7 @@
  * Plugin Name: Emergency Security Cleanup
  * Plugin URI: https://github.com/aredos/emergency-cleanup
  * Description: Plugin de emergencia para limpieza automática de malware después del compromiso del servidor. Incluye detección avanzada, backup automático y verificación de integridad.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 5.0
  * Tested up to: 6.4
  * Requires PHP: 7.4
@@ -581,6 +581,27 @@ class EmergencySecurityCleanup {
             }
         }
         
+        // Escanear carpetas de plugins NO registradas (backdoors ocultos)
+        $found_items[] = "";
+        $found_items[] = "🔍 Buscando carpetas de plugins NO registradas...";
+        $unregistered_folders = $this->scan_unregistered_plugin_folders();
+        if (!empty($unregistered_folders)) {
+            $found_items[] = "⚠️ Encontradas " . count($unregistered_folders) . " carpetas NO registradas en plugins:";
+            foreach ($unregistered_folders as $folder_info) {
+                $icon = '🔸';
+                if ($folder_info['severity'] === 'critical') {
+                    $icon = '🚨';
+                    $found_malware = true;
+                } elseif ($folder_info['severity'] === 'high') {
+                    $icon = '⚠️';
+                    $found_malware = true;
+                }
+                $found_items[] = "   {$icon} {$folder_info['folder']} - {$folder_info['reason']}";
+            }
+        } else {
+            $found_items[] = "✅ Todas las carpetas en plugins están registradas";
+        }
+        
         // Buscar archivos PHP en uploads
         $upload_dir = wp_upload_dir();
         $php_files = $this->find_php_files($upload_dir['basedir']);
@@ -775,6 +796,23 @@ class EmergencySecurityCleanup {
                     $deleted_count++;
                 } else {
                     $this->log[] = "❌ Error eliminando plugin: {$plugin}/";
+                }
+            }
+        }
+        
+        // Eliminar carpetas de plugins NO registradas con severidad alta/crítica
+        $unregistered_folders = $this->scan_unregistered_plugin_folders();
+        foreach ($unregistered_folders as $folder_info) {
+            // Solo eliminar automáticamente las de severidad alta o crítica
+            if ($folder_info['severity'] === 'high' || $folder_info['severity'] === 'critical') {
+                $folder_path = WP_CONTENT_DIR . '/plugins/' . basename($folder_info['folder']);
+                if (is_dir($folder_path)) {
+                    if ($this->delete_directory($folder_path)) {
+                        $this->log[] = "✅ Carpeta NO registrada eliminada: {$folder_info['folder']}";
+                        $deleted_count++;
+                    } else {
+                        $this->log[] = "❌ Error eliminando carpeta NO registrada: {$folder_info['folder']}";
+                    }
                 }
             }
         }
@@ -1215,6 +1253,127 @@ class EmergencySecurityCleanup {
                 ]
             ]
         ];
+    }
+    
+    /**
+     * Detecta carpetas de plugins NO registradas en WordPress (posibles backdoors)
+     */
+    private function scan_unregistered_plugin_folders() {
+        $suspicious_folders = [];
+        
+        $plugins_dir = WP_CONTENT_DIR . '/plugins';
+        
+        if (!is_dir($plugins_dir)) {
+            return $suspicious_folders;
+        }
+        
+        // 1. Obtener todos los plugins registrados en WordPress
+        if (!function_exists('get_plugins')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $registered_plugins = get_plugins();
+        
+        // 2. Extraer solo los nombres de las carpetas de plugins registrados
+        $registered_folders = [];
+        foreach ($registered_plugins as $plugin_path => $plugin_data) {
+            // El path es como: "akismet/akismet.php" o "hello.php"
+            $parts = explode('/', $plugin_path);
+            if (count($parts) > 1) {
+                // Plugin con carpeta
+                $registered_folders[] = $parts[0];
+            } else {
+                // Plugin de un solo archivo (hello.php) - raro pero posible
+                $registered_folders[] = pathinfo($parts[0], PATHINFO_FILENAME);
+            }
+        }
+        
+        // Carpetas del sistema que son legítimas (no son plugins)
+        $system_folders = [
+            'index.php',  // Archivo de protección
+            '.htaccess',  // Configuración
+            '.', 
+            '..',
+        ];
+        
+        // Carpetas que pueden existir por residuos de desinstalación (ignorar si están vacías)
+        $possible_residues = [];
+        
+        // 3. Listar todas las carpetas reales en /plugins/
+        $actual_folders = [];
+        $dir_iterator = new DirectoryIterator($plugins_dir);
+        
+        foreach ($dir_iterator as $item) {
+            if ($item->isDot() || !$item->isDir()) {
+                continue;
+            }
+            
+            $folder_name = $item->getFilename();
+            
+            // Ignorar carpetas del sistema
+            if (in_array($folder_name, $system_folders)) {
+                continue;
+            }
+            
+            $actual_folders[] = $folder_name;
+        }
+        
+        // 4. Comparar: carpetas existentes vs registradas
+        foreach ($actual_folders as $folder) {
+            if (!in_array($folder, $registered_folders)) {
+                $folder_path = $plugins_dir . '/' . $folder;
+                
+                // Verificar si tiene archivos PHP (posible backdoor)
+                $has_php = false;
+                $php_files = glob($folder_path . '/*.php');
+                if ($php_files && count($php_files) > 0) {
+                    $has_php = true;
+                }
+                
+                // Verificar si tiene subcarpetas con PHP
+                $has_deep_php = false;
+                if (is_dir($folder_path)) {
+                    $iterator = new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator($folder_path, RecursiveDirectoryIterator::SKIP_DOTS),
+                        RecursiveIteratorIterator::SELF_FIRST
+                    );
+                    
+                    foreach ($iterator as $file) {
+                        if ($file->isFile() && $file->getExtension() === 'php') {
+                            $has_deep_php = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // Clasificar severidad
+                $severity = 'low';
+                $reason = 'Carpeta no registrada (posible residuo)';
+                
+                if ($has_php || $has_deep_php) {
+                    $severity = 'high';
+                    $reason = 'Carpeta NO registrada con archivos PHP (posible backdoor)';
+                    
+                    // Verificar si parece un backdoor conocido
+                    $suspicious_names = ['shell', 'backdoor', 'hack', 'c99', 'r57', 'wso', 'adminer', 'bypass'];
+                    foreach ($suspicious_names as $suspicious) {
+                        if (stripos($folder, $suspicious) !== false) {
+                            $severity = 'critical';
+                            $reason = 'Carpeta NO registrada con nombre sospechoso y archivos PHP (BACKDOOR)';
+                            break;
+                        }
+                    }
+                }
+                
+                $suspicious_folders[] = [
+                    'folder' => 'wp-content/plugins/' . $folder,
+                    'reason' => $reason,
+                    'severity' => $severity,
+                    'has_php' => $has_php || $has_deep_php,
+                ];
+            }
+        }
+        
+        return $suspicious_folders;
     }
     
     /**
